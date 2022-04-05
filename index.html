@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Web 3 Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="node_modules/web3/dist/web3.min.js"></script>
+  </head>
+
+  <body>
+    Blockchain Based IoT Platform
+    <br>
+    <br />
+    <button onclick="get();">Get Newest Sensor Reading</button>
+    <br />
+    <tr>
+        <br>
+    <td>Insert a manual Reading :</td>
+    <td>
+      <input id="xvalue" type="text" />
+      <input
+        id="Button1"
+        type="button"
+        onclick="set()"
+        value="Add to Blockchain"
+      />
+    </td>
+</tr>
+      <br /><br />
+      <span id="status">Loading...</span>
+
+      <script type="text/javascript">
+        async function loadWeb3() {
+          if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+          }
+        }
+
+        async function loadContract() {
+          return await new window.web3.eth.Contract(
+            [
+              {
+                inputs: [
+                  {
+                    internalType: "uint256",
+                    name: "x",
+                    type: "uint256",
+                  },
+                ],
+                name: "set",
+                outputs: [],
+                stateMutability: "nonpayable",
+                type: "function",
+              },
+              {
+                inputs: [],
+                name: "get",
+                outputs: [
+                  {
+                    internalType: "uint256",
+                    name: "",
+                    type: "uint256",
+                  },
+                ],
+                stateMutability: "view",
+                type: "function",
+              },
+            ],
+            "0xb9f8a0ab999c3f92902ac15653e0c67cf4c4d833"
+          );
+        }
+
+        async function get() {
+          updateStatus("fetching Sensor Reading...");
+          const reading = await window.contract.methods.get().call();
+          updateStatus(`Newest Sensor Reading: ${reading}`);
+        }
+
+        async function getCurrentAccount() {
+          const accounts = await window.web3.eth.getAccounts();
+          return accounts[0];
+          r;
+        }
+
+        async function set() {
+          new_val = document.getElementById("xvalue").value
+          const value = new_val;
+          updateStatus(`Updating sensor reading with with ${value}`);
+          const account = await getCurrentAccount();
+          const reading = await window.contract.methods
+            .set(value)
+            .send({ from: account });
+          updateStatus("Updated.");
+        }
+
+        async function load() {
+          await loadWeb3();
+          window.contract = await loadContract();
+          updateStatus("Ready!");
+        }
+
+        function updateStatus(status) {
+          const statusEl = document.getElementById("status");
+          statusEl.innerHTML = status;
+          console.log(status);
+        }
+
+        load();
+      </script>
+    </td>
+
+    <br>
+    <br>
+    <br>
+    View Smartcontract transcations : <a href="https://kovan.etherscan.io/address/0xb9f8a0ab999c3f92902ac15653e0c67cf4c4d833">0xB9f8a0Ab999C3f92902aC15653e0c67cf4C4d833</a>
+  </body>
+</html>
