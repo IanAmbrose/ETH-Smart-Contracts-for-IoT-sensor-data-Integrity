@@ -5,5 +5,6 @@ Set and Read sensor data to and from the contract, viewable on etherscan
 
 Deployed at: https://ianambrose.github.io/SmartContractInteraction/
 
+Notice:
 Smart Contract test network set to read only due to inactivity.<br>
 However historical transactions can still be viewed. 
