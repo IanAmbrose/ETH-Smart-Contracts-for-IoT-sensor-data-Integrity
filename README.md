@@ -1,6 +1,7 @@
 # SmartContractInteraction
 
-Using Ethereum Smart contracts implementation for IoT sensor data integrity
+Using Ethereum Smart contracts implementation for IoT sensor data integrity.
+Set and Read sensor data to and from the contract, viewable on etherscan
 
 Deployed at: https://ianambrose.github.io/SmartContractInteraction/
 
