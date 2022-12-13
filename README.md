@@ -1,4 +1,4 @@
-# SmartContractInteraction
+# Ethereum Smart Contract Implementation (Securing sensitive data)
 
 Using Ethereum Smart contracts implementation for IoT sensor data integrity. <br>
 Set and Read sensor data to and from the contract, viewable on etherscan
